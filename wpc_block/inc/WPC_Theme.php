@@ -6,9 +6,9 @@
  * Loads a view.
  *
  * @author Bryan Trudel
- * @package WP_Block_Theme
+ * @package WPC
  */
-   class WP_Block_Theme {
+   class WPC_Theme {
 
     private $pageVars = array();
     private $template;

@@ -1,7 +1,7 @@
 <?php
 
 define('TEMPLATE_DIR', get_stylesheet_directory());
-require('inc/WP_Block_Theme.php');
+require('inc/WPC_Theme.php');
 
 /**
  * use shortcodes to place content within your content
@@ -9,12 +9,12 @@ require('inc/WP_Block_Theme.php');
  * @return string       a rendered block
  * @example  [block type=post slug=hello-world] will put the title/content of the hello-world page into your post.
  */
-function wp_block_shortcode($atts) {
+function wpc_block_shortcode($atts) {
   extract(
     shortcode_atts(
       array(
         "slug" => '',
-        "template"    => 'wp_block/block.tpl',//by default, we look for block template in wpc block folder.
+        "template"    => 'wpc_block/block.tpl',//by default, we look for block template in wpc block folder.
         "type"     => 'post',
         "args"   => array(),
         "title"  => ''
@@ -26,7 +26,7 @@ function wp_block_shortcode($atts) {
   if($slug != '' && $type != '') {
     $contents = '';
 
-    $block = get_block($slug, $type);
+    $block = wpc_get_block($slug, $type);
     $args = !empty($args) ? explode(',', $args) : array();
 
     //if we pass arguments in, set and pass them to the block.
@@ -35,7 +35,7 @@ function wp_block_shortcode($atts) {
       $block->{$data[0]} = $data[1];
     }
     //and voila.
-    $contents = render_block($block, $template, $title);
+    $contents = wpc_render_block($block, $template, $title);
 
     return $contents;
 
@@ -48,7 +48,7 @@ function wp_block_shortcode($atts) {
  * @param  string $slug the post slug
  * @return array       a wordpress post
  */
-function get_block($slug, $type) {
+function wpc_get_block($slug, $type) {
 
   $args = array(
     'name' => $slug,
@@ -70,7 +70,7 @@ function get_block($slug, $type) {
  * @param  object $block a block of data from a post
  * @return void        print the data
  */
-function render_block($block, $template = '', $title = '') {
+function wpc_render_block($block, $template = '', $title = '') {
 
   //arguments for the theme template.
   $args = array(
@@ -87,7 +87,7 @@ function render_block($block, $template = '', $title = '') {
     $id = $block->ID;
     $edit = "<a href=\"/wp-admin/post.php?post=$id&action=edit\">edit</a>";
   }
-  return theme($template, $args).$edit;
+  return wpc_theme($template, $args).$edit;
 }
 
 
@@ -97,10 +97,10 @@ function render_block($block, $template = '', $title = '') {
  * @param  array  $args     an associative array of arguments to set as variables in the template
  * @return string           the rendered html from the template
  */
-function theme($template, $args = array()) {
+function wpc_theme($template, $args = array()) {
 
   //this whole thing is reliant on the theme class.
-  $theme = new WP_Block_Theme($template);
+  $theme = new WPC_Theme($template);
 
   foreach($args as $key => $val){
     $theme->set($key, $val);
@@ -110,4 +110,4 @@ function theme($template, $args = array()) {
 
 }
 
-add_shortcode('block', 'wp_block_shortcode');
+add_shortcode('block', 'wpc_block_shortcode');
