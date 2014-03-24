@@ -1,8 +1,5 @@
 <?php
 
-define('TEMPLATE_DIR', get_stylesheet_directory());
-require('inc/WPC_Theme.php');
-
 /**
  * use shortcodes to place content within your content
  * @param  array $atts an array of attributes to use
@@ -14,7 +11,7 @@ function wpc_block_shortcode($atts) {
     shortcode_atts(
       array(
         "slug" => '',
-        "template"    => 'wpc_block/block.tpl',//by default, we look for block template in wpc block folder.
+        "template"    => 'wpc/wpc_block/block.tpl',//by default, we look for block template in wpc block folder.
         "type"     => 'post',
         "args"   => array(),
         "title"  => ''
