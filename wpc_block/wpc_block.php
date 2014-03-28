@@ -87,24 +87,4 @@ function wpc_render_block($block, $template = '', $title = '') {
   return wpc_theme($template, $args).$edit;
 }
 
-
-/**
- * a wrapper function for the block theme class.
- * @param  string $template the name of the template. loosk for templates in theme directory. extenstion .php
- * @param  array  $args     an associative array of arguments to set as variables in the template
- * @return string           the rendered html from the template
- */
-function wpc_theme($template, $args = array()) {
-
-  //this whole thing is reliant on the theme class.
-  $theme = new WPC_Theme($template);
-
-  foreach($args as $key => $val){
-    $theme->set($key, $val);
-  }
-
-  return $theme->fetch();
-
-}
-
 add_shortcode('block', 'wpc_block_shortcode');
