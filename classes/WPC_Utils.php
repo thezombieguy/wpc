@@ -69,24 +69,4 @@ class WPC_Utils
     return $data[count($data) -1];
   }
 
-  /**
-   * a theme function to seperate html templates from code
-   * @param  string $template the name of the template. loosk for templates in theme directory. extenstion tpl.php
-   * @param  array  $args     an associative array of arguments to set as variables in the template
-   * @return string           the rendered html from the template
-   *
-   * This is basically a View class from MVC framework.
-   */
-  public static function theme($template, $args = array()) {
-
-    $theme = new WPC_View($template);
-
-    foreach($args as $key => $val){
-      $theme->set($key, $val);
-    }
-
-    return $theme->fetch();
-
-  }
-
 }
