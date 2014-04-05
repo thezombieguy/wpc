@@ -1,5 +1,4 @@
 <?php
-require_once('classes/WPC_Theme.php');
 
 /**
  * a wrapper function for the block theme class.

@@ -1,7 +1,6 @@
 <?php
 
 require_once('post_types.php');
-require_once('classes/WPC_PostTypes.php');
 
 /**
  * a wrapper function to register all custom post types
