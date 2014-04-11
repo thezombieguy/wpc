@@ -27,12 +27,12 @@ class WPC_Utils
 
   /**
    * function to generate a full site url from a relative path.
-   * @param  string $path relatinve path such as /wp-content/uploads/..../filename.jpeg.
+   * @param  string $path relative to the wordpress install directory.
    * @return string       returns the url relative to site_url
    */
-  public static function url($path)
+  public static function url($path, $options = array())
   {
-    $url = site_url($path);
+    $url = home_url($path);
     return $url;
   }
 
