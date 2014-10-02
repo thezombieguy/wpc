@@ -15,9 +15,9 @@ class WPC_Load
 	 */
 	public static function load()
 	{
-		$loadDir = WPC_TEMPLATE_DIR.'/'.WPC_NAMESPACE.'/';
+		$loadDir = WPC_APP_DIR . '/';
 		$dirs = scandir($loadDir);
-		
+
 		foreach($dirs as $dir)
 		{
 			if(preg_match('/'.WPC_NAMESPACE.'_/', $dir))

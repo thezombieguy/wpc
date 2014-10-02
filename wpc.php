@@ -1,5 +1,6 @@
 <?php
 define('WPC_TEMPLATE_DIR', get_stylesheet_directory());
+define('WPC_APP_DIR', __DIR__);
 define('WPC_NAMESPACE', 'wpc');
 
 /**
@@ -9,9 +10,9 @@ define('WPC_NAMESPACE', 'wpc');
  */
 
 function __autoload($controller) {
-  if(file_exists(WPC_TEMPLATE_DIR.'/wpc/classes/'.$controller.'.php')){
-    require_once(WPC_TEMPLATE_DIR.'/wpc/classes/'.$controller.'.php');
-  }
+	if(file_exists(WPC_APP_DIR.'/classes/'.$controller.'.php')){
+		require_once(WPC_APP_DIR.'/classes/'.$controller.'.php');
+	}
 }
 
 WPC_Load::load();
