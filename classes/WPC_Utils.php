@@ -21,7 +21,6 @@ class WPC_Utils
     echo "<sub>".$debug['file'] . ": line " . $debug['line']."</sub>\n";
     print_r($data);
     echo '</pre>';
-
   }
 
 

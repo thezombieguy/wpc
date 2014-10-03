@@ -11,7 +11,7 @@ function wpc_block_shortcode($atts) {
     shortcode_atts(
       array(
         "slug" => '',
-        "template"    => 'wpc/wpc_block/block.tpl',//by default, we look for block template in wpc block folder.
+        "template"    => APP_DIR . 'wpc_block/block.tpl',//by default, we look for block template in wpc block folder.
         "type"     => 'post',
         "args"   => array(),
         "title"  => ''

@@ -9,7 +9,9 @@ define('WPC_NAMESPACE', 'wpc');
  * @return void             includes the controller in autoloader
  */
 
-function __autoload($controller) {
+spl_autoload_register('wpc_autoload');
+
+function wpc_autoload($controller) {
 	if(file_exists(WPC_APP_DIR.'/classes/'.$controller.'.php')){
 		require_once(WPC_APP_DIR.'/classes/'.$controller.'.php');
 	}
