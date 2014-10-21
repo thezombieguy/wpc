@@ -4,7 +4,7 @@ global $post_types;
 
 $post_types = array(
   array(
-  	'post_type' => 'block',
+  	'post_type' => 'wpc_block',
 	  'args' => array(
 	    'description' => __('Data blocks'),
 	    'labels' => array(

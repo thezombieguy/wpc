@@ -18,3 +18,5 @@ function wpc_autoload($controller) {
 }
 
 WPC_Load::load();
+
+add_filter('widget_text', 'do_shortcode');

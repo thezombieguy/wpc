@@ -18,7 +18,6 @@ class WPC_PostTypes
 
 	/**
 	 * create post types based on schema data
-	 * @return void registers post types from global $post_types array.
 	 */
 	public function create()
 	{
@@ -33,7 +32,6 @@ class WPC_PostTypes
 
 	/**
 	 * loads the post types schema
-	 * @return void load post_types array
 	 */
 	public function load()
 	{
