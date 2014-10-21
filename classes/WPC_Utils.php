@@ -18,7 +18,7 @@ class WPC_Utils
 	{
 		echo '<pre>';
 		$debug = array_shift(debug_backtrace());
-		echo '<sub>'.$debug['file'] . ": line " . $debug['line'].'</sub>\n';
+		echo '<sub>'.$debug['file'] . ": line " . $debug['line'].'</sub>'."\n";
 		print_r($data);
 		echo '</pre>';
 	}

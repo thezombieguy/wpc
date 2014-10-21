@@ -56,7 +56,8 @@ function wpc_get_block($slug, $type) {
 
 	$posts = get_posts($args);
 
-	$p = array_shift($posts);//because it should always be a single post, so let's bump it out of the sub array
+	//because it should always be a single post, so let's bump it out of the sub array
+	$p = ! empty($posts) ? array_shift($posts) : new stdClass();
 	$p->post_content = wpautop($p->post_content);//and wrap in p tags because for some reason this doesn't happen on get_posts.
 
 	return $p;
@@ -80,7 +81,7 @@ function wpc_render_block($block, $template = '', $title = '') {
 	$edit = '';
 
 	// We will append edit links to each block for easier access to editing inline content.
-	if(is_user_logged_in()){
+	if(is_user_logged_in() && ! empty($block->ID)){
 		$id = $block->ID;
 		$edit = "<a href=\"/wp-admin/post.php?post=$id&action=edit\">edit</a>";
 	}
