@@ -41,10 +41,10 @@ class WPC_MetaBoxes
 	public function add($post_type)
 	{
 
-		foreach($this->meta as $box){
+		foreach ( $this->meta as $box ){
 
 			//if we want this field in a specific post type...
-			if (in_array($post_type, $box->post_types)){
+			if ( in_array( $post_type, $box->post_types ) ){
 
 				add_meta_box(
 					$box->id,//html ID for div.
@@ -57,7 +57,6 @@ class WPC_MetaBoxes
 				);
 
 			}
-
 		}
 
 	}
@@ -74,13 +73,13 @@ class WPC_MetaBoxes
 		* We need to verify this came from the our screen and with proper authorization,
 		* because save_post can be triggered at other times.
 		*/
-		foreach($this->meta as $box){
+		foreach ( $this->meta as $box ){
 
 			// Sanitize the user input.
 			$mydata = sanitize_text_field( $_POST[ $box->field_name ] );
 
 			// If no errors have occurred, update the meta field.
-			if($this->permission($box)) {
+			if ( $this->permission( $box ) ) {
 				update_post_meta( $post_id, $box->meta_key, $mydata );
 			}
 		}
@@ -94,13 +93,10 @@ class WPC_MetaBoxes
 
 		global $meta_boxes;//needs get meta.
 
-		foreach($meta as $box)
-		{
-			foreach($box['post_types'] as $type)
-			{
-				remove_meta_box('postcustom', $type, $box['context']);
+		foreach ( $meta as $box ) {
+			foreach ( $box['post_types'] as $type ) {
+				remove_meta_box( 'postcustom', $type, $box['context'] );
 			}
-
 		}
 
 	}
@@ -113,33 +109,28 @@ class WPC_MetaBoxes
 	public function permission($box = array())
 	{
 
-		if( ! isset( $_POST[ $box->wp_nonce_field['name'] ] ) )
-		{
+		if ( ! isset( $_POST[ $box->wp_nonce_field['name'] ] ) ) {
 			return false;
 		}
 		$nonce = $_POST[ $box->wp_nonce_field['name'] ];
 
 		// Verify that the nonce is valid.
-		if( ! wp_verify_nonce( $nonce, $box->wp_nonce_field['action'] ) )
-		{
+		if ( ! wp_verify_nonce( $nonce, $box->wp_nonce_field['action'] ) ) {
 			return false;
 		}
 
 		// If this is an autosave, our form has not been submitted,
-		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-		{
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
 		}
 
 		// Check the user's permissions.
 		if ( 'page' == $_POST['post_type'] ) {
-			if( ! current_user_can( 'edit_page', $post_id ) )
-			{
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return false;
 			}
 		} else {
-			if( ! current_user_can( 'edit_post', $post_id ) )
-			{
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return false;
 			}
 		}
@@ -158,7 +149,7 @@ class WPC_MetaBoxes
 	{
 
 		$box = $callback_args['args']['box'];//if this is empty we shoudl error out or something.
-		if(empty($box)){
+		if ( empty($box) ){
 			return;
 		}
 		wp_nonce_field( $box->wp_nonce_field['action'], $box->wp_nonce_field['name'] );
@@ -177,7 +168,7 @@ class WPC_MetaBoxes
 			'description' => $description,
 		);
 
-		print $this->theme($this->templates.$type.'_box', $args);
+		print $this->theme( $this->templates.$type.'_box', $args );
 
 	}
 
@@ -191,16 +182,16 @@ class WPC_MetaBoxes
 
 		$meta = ! empty($meta_boxes) ? $meta_boxes : array();
 
-		foreach($meta as $box) {
+		foreach ( $meta as $box ) {
 
-			if(empty($box['key'])) {
+			if ( empty($box['key']) ) {
 				continue;//don't bother doing anything here if there's no key provided.
 			}
 
 			//this could be an array of defaults, and array merged to complete.
 			//I haven't decided to go this route yet as not a lot of this can be defaulted.
 
-			$this->meta[] = (object)array(
+			$this->meta[] = (object) array(
 				'id' => $box['key'],
 				'title' => $box['title'],
 				'label' => $box['label'],
@@ -227,10 +218,10 @@ class WPC_MetaBoxes
 	public function theme($template, $args = array()) {
 
 		//this whole thing is reliant on the theme class.
-		$theme = new WPC_Theme($template);
+		$theme = new WPC_Theme( $template );
 
-		foreach($args as $key => $val){
-			$theme->set($key, $val);
+		foreach ( $args as $key => $val ){
+			$theme->set( $key, $val );
 		}
 
 		return $theme->fetch();
