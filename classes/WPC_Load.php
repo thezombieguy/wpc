@@ -10,19 +10,18 @@ class WPC_Load
 {
 
 	/**
-	 * load all files in the wpc directory with wpc_ folders.
-	 * @return void require the files
-	 */
+	* load all files in the wpc directory with wpc_ folders.
+	*
+	* @return void require the files
+	*/
 	public static function load()
 	{
 		$loadDir = WPC_APP_DIR . '/';
-		$dirs = scandir($loadDir);
+		$dirs = scandir( $loadDir );
 
-		foreach($dirs as $dir)
-		{
-			if(preg_match('/'.WPC_NAMESPACE.'_/', $dir))
-			{
-				require_once($loadDir.$dir.'/'.$dir.'.php');
+		foreach ( $dirs as $dir ) {
+			if ( preg_match( '/'.WPC_NAMESPACE.'_/', $dir ) ) {
+				require_once $loadDir.$dir.'/'.$dir.'.php';
 			}
 		}
 
