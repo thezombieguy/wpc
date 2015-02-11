@@ -17,9 +17,9 @@ class WPC_Utils
 	public static function print_rr($data = array())
 	{
 		echo '<pre>';
-		$debug = array_shift(debug_backtrace());
-		echo '<sub>'.$debug['file'] . ": line " . $debug['line'].'</sub>'."\n";
-		print_r($data);
+		$debug = array_shift( debug_backtrace() );
+		echo "<sub>{$debug['file']} : line {$debug['line']}</sub>'\n";
+		print_r( $data );
 		echo '</pre>';
 	}
 
@@ -31,7 +31,7 @@ class WPC_Utils
 	 */
 	public static function url($path)
 	{
-		$url = home_url($path);
+		$url = home_url( $path );
 		return $url;
 	}
 
@@ -43,14 +43,14 @@ class WPC_Utils
 	 */
 	public static function l($path, $title = '', $attributes = array())
 	{
-		$url = (preg_match('/http\:\/\//', $path)) ? $path : self::url($path);
+		$url = ( preg_match( '/http\:\/\//', $path ) ) ? $path : self::url( $path );
 		$attrs = array();
 
-		foreach($attributes as $key => $value){
+		foreach ( $attributes as $key => $value ){
 			$attrs[] = "$key=\"$value\"";
 		}
 
-		$attributes = implode(' ', $attrs);
+		$attributes = implode( ' ', $attrs );
 		$link = "<a href=\"$url\" $attributes>$title</a>";
 		return $link;
 	}
@@ -64,8 +64,8 @@ class WPC_Utils
 	 */
 	public static function filename_from_path($path)
 	{
-		$data = explode('/', $path);
-		return $data[ count($data) -1 ];
+		$data = explode( '/', $path );
+		return $data[ count( $data ) -1 ];
 	}
 
 }
