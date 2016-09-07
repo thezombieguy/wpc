@@ -1,6 +1,6 @@
 {
   "autoload": {
-        "files" : ["src/helpers.php"],
+        "files" : ["src/helpers.php", "src/block.tpl.php"],
         "psr-4": {
           "WPC\\": "src/WPC/"
         }
