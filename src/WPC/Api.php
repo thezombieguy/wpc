@@ -3,6 +3,30 @@ namespace WPC;
 /**
  * @file
  * Api.php
+ *
+ * Handles registration of endpoints fron WPC\Api
+ *
+ * Uses the add_rewrite_rule() syntax to add rewrites, register query vars,
+ * and interrupt wp callback to send response.
+ * @see https://codex.wordpress.org/Rewrite_API/add_rewrite_rule WordPress codex for add_rewrite_rule
+ *
+ * URL redirect string must have the following paramters always.
+ * @param string __api set to 1 for true. This tells the class to handle teh API.
+ * @param string handler The class to handle the callback.
+ * @param string callback The fmethod in the handler class.
+ * @example index.php?__api=1&handler=Class&callback=method and append whatever vars for matches you want.
+ * // Will be processed with callback functionality. __api to trigger.
+ * $endpoints = array(
+ *   'regex' => '^api/claim-prize/([0-9]+)/([0-9]+)',
+ *   'redirect' => 'index.php?__api=1&handler=YourHandler&callback=Method&uid=$matches[1]&prize_id=$matches[2]',
+ *   'after' => 'top',
+ * ),
+ *
+ * new WPC\API($endpoints);
+ *
+ *
+ * You can use different classes to handle different types of callbacks.
+ * Please be sure to sanitize your arguments in your handler. This doesn't do that for you.
  */
 
 /**
@@ -14,7 +38,7 @@ class Api {
   /**
    * An array of enpoints based on WordPress reqrite api syntax.
    * @var array
-   */   
+   */
   private $endpoints = array();
 
   /**
@@ -40,14 +64,14 @@ class Api {
       $redirect = ltrim($endpoint['redirect'], 'index.php?');
       parse_str($redirect, $args);
       foreach ($args as $arg => $val) {
-        $this->query_args[$arg] = ''; 
+        $this->query_args[$arg] = '';
       }
-    }    
+    }
   }
 
   /**
    * Initialize the WordPress API callbacks.
-   * @return void 
+   * @return void
    */
   public function init() {
     add_filter('query_vars', array($this, 'add_query_vars'), 0);
@@ -92,7 +116,7 @@ class Api {
   }
 
   /**
-   * Handles the request. 
+   * Handles the request.
    *
    * This could probably be integrated into invoke().
    */
@@ -104,7 +128,7 @@ class Api {
   /**
    * Invokes a method/class callback from the WordPress args
    * @param  array  $args query args from WordPress
-   * @return void   
+   * @return void
    */
   protected function invoke(array $args) {
 
@@ -117,7 +141,7 @@ class Api {
     else {
       // No, break here.
       throw new \Exception("Handler callback not defined");
-      
+
     }
   }
 
