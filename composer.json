@@ -1,8 +1,8 @@
 {
   "autoload": {
         "files" : [
-          "functions/helpers.php",
-          "functions/utils.php"
+          "lib/helpers.php",
+          "lib/utils.php"
         ],
         "psr-4": {
           "WPC\\": "src/WPC/"
