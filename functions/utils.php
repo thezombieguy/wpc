@@ -58,6 +58,9 @@ function filename_from_path($path)
   return $data[ count( $data ) -1 ];
 }
 
+/**
+ * Let's register the block custom post type.
+ */
 if ( ! function_exists('wpc_block') ) {
 
   // Register Custom Post Type

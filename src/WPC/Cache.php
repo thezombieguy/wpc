@@ -3,6 +3,9 @@ namespace WPC;
 /**
  * @file
  * WPC_Cache.php
+ *
+ * @author Bryan Trudel
+ * @package WPC
  */
 
 /**
@@ -11,13 +14,13 @@ namespace WPC;
 class Cache
 {
   public $basepath = '';
-  
+
   /*
    * Set up the base path for the cache templates. This folder needs write permissions.
    *
    * @return  void
-   */  
-  public function __construct() 
+   */
+  public function __construct()
   {
     $uploads = wp_upload_dir();
     $this->basepath = $uploads['basedir'] . '/cache/';
@@ -33,23 +36,23 @@ class Cache
    * @param   string  $id The unique identifier of the cahced item
    * @return  object  $cache  The cached object, or an empty object if no cache object exists
    */
-  public function get($id) 
+  public function get($id)
   {
     $filename = $this->basepath.'cache_' . $id;
     $cache = (object)array('data' => '', 'time' => 0);
     $data = @file_get_contents($filename);
-    if (!$data) 
+    if (!$data)
     {
       return $cache;
     }
-    else 
+    else
     {
       $cache->data = json_decode($data);
       $cache->time = filemtime($filename);
     }
     return $cache;
   }
-  
+
   /*
    * Cache an object
    *
@@ -57,29 +60,29 @@ class Cache
    * @param   string  $data A string of data you want to cache. Can be html, serialized array etc.
    * @return  boolean $result reurns if the object was cached or not.
    */
-  public function set($id, $data) 
+  public function set($id, $data)
   {
     $filename = $this->basepath.'cache_' . $id;
     $result = file_put_contents($filename, json_encode($data));
-    if ($result === FALSE) 
+    if ($result === FALSE)
     {
       print("Error when trying to write to $filename, please make sure the dir is writable");
     }
     return $result;
   }
-  
+
   /*
    * Clears every cached object. Be careful, there's no pick and choose here.
    *
    * @return  void
    */
-  public function clear() 
+  public function clear()
   {
     $directory = $this->basepath.'';
     $handler = opendir($directory);
-    while ($file = readdir($handler)) 
+    while ($file = readdir($handler))
     {
-      if ($file != "." && $file != "..") 
+      if ($file != "." && $file != "..")
       {
         unlink($directory.$file);
       }

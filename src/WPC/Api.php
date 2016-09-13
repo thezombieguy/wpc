@@ -4,6 +4,9 @@ namespace WPC;
  * @file
  * Api.php
  *
+ * @author Bryan Trudel
+ * @package WPC
+ *
  * Handles registration of endpoints fron WPC\Api
  *
  * Uses the add_rewrite_rule() syntax to add rewrites, register query vars,
