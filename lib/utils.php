@@ -33,7 +33,7 @@ function url($path)
  */
 function l($path, $title = '', $attributes = array())
 {
-  $url = ( preg_match( '/http\:\/\//', $path ) ) ? $path : self::url( $path );
+  $url = ( preg_match( '/http\:\/\//', $path ) ) ? $path : url( $path );
   $attrs = array();
 
   foreach ( $attributes as $key => $value ){
