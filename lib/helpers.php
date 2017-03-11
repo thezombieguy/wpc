@@ -16,7 +16,7 @@
 function wpc_theme($template, $args = array()) {
 
   //this whole thing is reliant on the theme class.
-  $theme = new WPC\Theme($template);
+  $theme = new \WPC\Theme($template);
 
   foreach($args as $key => $val){
     $theme->set($key, $val);
