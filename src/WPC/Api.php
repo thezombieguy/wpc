@@ -19,7 +19,7 @@ namespace WPC;
  * @param string callback The fmethod in the handler class.
  * @example index.php?__api=1&handler=Class&callback=method and append whatever vars for matches you want.
  * // Will be processed with callback functionality. __api to trigger.
- * $endpoints = array(
+ * $endpoints[] = array(
  *   'regex' => '^api/claim-prize/([0-9]+)/([0-9]+)',
  *   'redirect' => 'index.php?__api=1&handler=YourHandler&callback=Method&uid=$matches[1]&prize_id=$matches[2]',
  *   'after' => 'top',
@@ -27,7 +27,7 @@ namespace WPC;
  *
  * new WPC\API($endpoints);
  *
- * Remember, update yoru permalinks to see this working.
+ * Remember, update your permalinks to see this working.
  *
  * You can use different classes to handle different types of callbacks.
  * Please be sure to sanitize your arguments in your handler. This doesn't do that for you.
@@ -40,7 +40,7 @@ namespace WPC;
 class Api {
 
   /**
-   * An array of enpoints based on WordPress reqrite api syntax.
+   * An array of endpoints based on WordPress rewrite api syntax.
    * @var array
    */
   private $endpoints = array();
@@ -133,7 +133,7 @@ class Api {
   }
 
   /**
-   * Invokes a method/class callback from the WordPress args
+   * Invokes a method/class callbakcs you spewcified in your API callback in eh endpoint
    * @param  array  $args query args from WordPress
    * @return void
    */
