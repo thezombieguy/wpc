@@ -1,20 +1,17 @@
 # Wordpress Custom Theme library
 This library is intended to give WordPress developers a little extra functionality when building custom themes.
 
-This library includes advanced theme templates with variable injection, API wrapper for easier endpoint development, and asimple  caching system that stores cached objects to the file system.
+This library includes advanced theme templates with variable injection, API wrapper for easier endpoint development, and a simple  caching system that stores cached objects to the file system.
 
 ## Install
 
 You can install with composer
 ```shell
-composer require thezombieguy/wpc
+composer require thezombieguy/wpc 2.0
 ```
 
-Alternative you can just clone this proect into your root wordpress folder and add the following to your functions.php
-```php
-include_once 'vendor/autoload.php'
-```
 ## Usage
+More information is available in the docs folder.
 
 ### Theme
 
@@ -39,8 +36,6 @@ $content = $theme->fetch();
 print $content;
 ```
 
-More information on the Theme class can be found in the docs folder.
-
 ## Cache
 
 Create a new cache object. This will create a wpc_cache folder in your uploads folder if it doesn't already exist. Make sure you have the correct permissions.
@@ -48,7 +43,7 @@ Create a new cache object. This will create a wpc_cache folder in your uploads f
 $cache = new Cache(); 
 ```
 
-TNow cache some data to the filesystem.
+Now cache some data to the filesystem.
 
 ```php
 $cache->set('myCacheData', array('fruit' => 'apple')); 
@@ -60,8 +55,8 @@ $myCacheData = $cache->get('myCacheData');
 ```
 
 Cache returns an object when calling cached data. 
-$myCacheData->time represents when this ws cached. 
-$myCacheData->data is the data you put into the cache.
+    `$myCacheData->time` represents when this ws cached. 
+`$myCacheData->data` is the data you put into the cache.
 ```
 stdClass Object
 (
@@ -74,7 +69,7 @@ stdClass Object
 )
 ```
 
-You can check the $myCacheData->time and after a certain amount of time, you can delete and recache trhe object again with updated information.
+You can check the `$myCacheData->time` and after a certain amount of time, you can delete and recache trhe object again with updated information.
 
 You can also wipe the cache folder with 
 ```php
@@ -99,7 +94,7 @@ class MyClass
 }
 ```
 
-Now create an array of endpoints to wish to register. note the handler/callback parameters in the url string shoudl match you class/method created above.
+Now create an array of endpoints to wish to register. Note the handler/callback parameters in the url string must match you class/method created above.
 
 ```php
 $endpoint = array(
@@ -110,10 +105,10 @@ $endpoint = array(
 
 $endpoints[] = $endpoint;
 
-new WPC\API($endpoints);
+new WPC\Api($endpoints);
 ```
 Now go and update your permalinks in WordPress or you will not see this in action. Go to Settings->Permalinks and click Save changes.
 
-Now when you go to your endpoint url http://exampl.com/api/numbers/1/2 you will see a json string output with the values you specified.
+Now when you go to your endpoint url http://example.com/api/numbers/1/2 you will see a json string output with the values you specified.
 
 The redirect string MUST contain the __api, handler, and callback variables or your endpoint will not execute.
