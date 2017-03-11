@@ -52,7 +52,7 @@ class Cache
     }
     else
     {
-      $cache->data = json_decode($data);
+      $cache->data = unserialize($data);
       $cache->time = filemtime($filename);
     }
     return $cache;
@@ -68,7 +68,7 @@ class Cache
   public function set($id, $data)
   {
     $filename = $this->basepath.'cache_' . $id;
-    $result = file_put_contents($filename, json_encode($data));
+    $result = file_put_contents($filename, serialize($data));
     if ($result === FALSE)
     {
       throw new \Exception("Error when trying to write to $filename, please make sure the dir is writable");
