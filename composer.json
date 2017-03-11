@@ -1,5 +1,15 @@
 {
-  "autoload": {
+    "name": "thezombieguy/wpc",
+    "description": "Custom WordPress features to allow for caching, theming and simple API endpoint creation.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bryan Trudel",
+            "email": "bryan@bryantrudel.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
         "files" : [
           "lib/helpers.php",
           "lib/utils.php"
