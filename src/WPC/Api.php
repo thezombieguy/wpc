@@ -27,6 +27,7 @@ namespace WPC;
  *
  * new WPC\API($endpoints);
  *
+ * Remember, update yoru permalinks to see this working.
  *
  * You can use different classes to handle different types of callbacks.
  * Please be sure to sanitize your arguments in your handler. This doesn't do that for you.
@@ -54,9 +55,11 @@ class Api {
    * Mighty construcTOR!
    */
   public function __construct(array $endpoints) {
+    
     $this->endpoints = $endpoints;
     $this->extract_query_args();
     $this->init();
+    
   }
 
   /**
@@ -64,11 +67,14 @@ class Api {
    */
   public function extract_query_args() {
     foreach ($this->endpoints as $endpoint) {
+      
       $redirect = ltrim($endpoint['redirect'], 'index.php?');
       parse_str($redirect, $args);
+      
       foreach ($args as $arg => $val) {
         $this->query_args[$arg] = '';
       }
+
     }
   }
 
@@ -86,6 +92,7 @@ class Api {
    * Register the query vars you are using in your query.
    * @see  function extract_query_args for the arg extraction.
    * @param array $vars array
+   * @return array extracted query args
    */
   public function add_query_vars(array $vars) {
     foreach ($this->query_args as $var => $val) {
@@ -106,7 +113,6 @@ class Api {
 
   /**
    * Interrupts WordPress query to add your own handler to the output.
-   * @return void
    */
   public function sniff_requests() {
     global $wp;
@@ -120,9 +126,7 @@ class Api {
 
   /**
    * Handles the request.
-   *
-   * This could probably be integrated into invoke().
-   */
+   *   */
   protected function handle_request() {
     global $wp;
     $this->invoke($wp->query_vars);
@@ -135,11 +139,19 @@ class Api {
    */
   protected function invoke(array $args) {
 
-    $class = "\\" . stripslashes($args['handler']);
+    extract($args);
+
+    // We will ensure prefix for global namespacing is intact.
+    $class = "\\" . stripslashes($handler);
+
+    unset($args['__api']);
+    unset($args['handler']);
+    unset($args['callback']);
+
     // Does this method exist?
-    if (method_exists(new $class, $args['callback'])) {
+    if (method_exists(new $class, $callback)) {
       $handler = new $class();
-      call_user_func_array(array($handler, $args['callback']), array($args));
+      call_user_func_array(array($handler, $callback), array($args));
     }
     else {
       // No, break here.
