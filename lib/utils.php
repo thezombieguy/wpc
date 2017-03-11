@@ -8,7 +8,8 @@
 function print_rr($data = array())
 {
   echo '<pre>';
-  $debug = array_shift( debug_backtrace() );
+  $backtrace = debug_backtrace();
+  $debug = array_shift( $backtrace );
   echo "<sub>{$debug['file']} : line {$debug['line']}</sub>'\n";
   print_r( $data );
   echo '</pre>';
